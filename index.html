@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AdokamaEarns — Earn Real Naira Daily</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     AUTH PAGE
+════════════════════════════════════════════════════════════ -->
+<div id="page-auth" class="page active">
+
+  <!-- LEFT: Brand panel -->
+  <div class="auth-left">
+    <div class="auth-left-inner">
+      <div class="auth-logo">
+        <div class="auth-logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+            <path d="M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
+          </svg>
+        </div>
+        <span class="auth-logo-name">Adokama<span>Earns</span></span>
+      </div>
+
+      <h1 class="auth-hero-title">Earn Real Naira<br/>Every Single Day 🇳🇬</h1>
+      <p class="auth-hero-sub">
+        Complete simple social media tasks, refer friends,
+        and withdraw real money straight to your bank account.
+        No investment required.
+      </p>
+
+      <div class="auth-stats">
+        <div class="auth-stat"><div class="val">₦100</div><div class="lbl">Per Task</div></div>
+        <div class="auth-stat"><div class="val">₦500</div><div class="lbl">Per Referral</div></div>
+        <div class="auth-stat"><div class="val">24hr</div><div class="lbl">Payout</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Register panel -->
+  <div class="auth-right" id="register-panel">
+    <p class="auth-switch">Already have an account? <a id="go-login">Sign In</a></p>
+    <h1 class="auth-title">Create Account</h1>
+    <p class="auth-subtitle">Start earning in under 2 minutes. Zero deposit required.</p>
+
+    <div class="ref-notice" id="ref-notice">
+      🎉 You were invited! Your referrer earns <strong>₦500</strong> when you join.
+    </div>
+
+    <div id="reg-error" class="auth-error">⚠️ <span></span></div>
+
+    <div class="form-row">
+      <div class="field-group"><label>First Name</label><input type="text" id="reg-fname" placeholder="Chidi"/></div>
+      <div class="field-group"><label>Last Name</label><input type="text" id="reg-lname" placeholder="Okafor"/></div>
+    </div>
+    <div class="field-group"><label>Email Address</label><input type="email" id="reg-email" placeholder="you@example.com"/></div>
+    <div class="field-group"><label>Phone Number</label><input type="tel" id="reg-phone" placeholder="+234 800 000 0000"/></div>
+    <div class="field-group"><label>Password</label><input type="password" id="reg-pass" placeholder="Min. 8 characters"/></div>
+    <div class="field-group"><label>Referral Code <span style="font-weight:400;text-transform:none;letter-spacing:0;">(Optional)</span></label><input type="text" id="reg-ref" placeholder="e.g. ADK-XXXXX"/></div>
+
+    <!-- CAPTCHA -->
+    <div class="captcha-wrap">
+      <div class="captcha-label">🔐 Security Verification — Type the code below</div>
+      <div class="captcha-row">
+        <div class="captcha-code" id="captcha-display"></div>
+        <button class="captcha-refresh" id="captcha-refresh-reg" title="Refresh code">
+          <svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+        </button>
+      </div>
+      <div class="captcha-input-row">
+        <input type="text" id="captcha-input" placeholder="Type code here…" maxlength="6" autocomplete="off"/>
+        <button class="captcha-verify-btn" id="captcha-verify-reg">Verify</button>
+      </div>
+      <div class="captcha-status" id="captcha-status"></div>
+    </div>
+
+    <button class="btn-primary" id="reg-btn">Create My Account →</button>
+  </div>
+
+  <!-- RIGHT: Login panel (hidden initially) -->
+  <div class="auth-right" id="login-panel" style="display:none;">
+    <p class="auth-switch">New here? <a id="go-register">Create Account</a></p>
+    <h1 class="auth-title">Welcome Back 👋</h1>
+    <p class="auth-subtitle">Sign in to continue earning.</p>
+
+    <div id="login-error" class="auth-error">⚠️ <span></span></div>
+
+    <div class="field-group"><label>Email Address</label><input type="email" id="login-email" placeholder="you@example.com"/></div>
+    <div class="field-group"><label>Password</label><input type="password" id="login-pass" placeholder="Your password"/></div>
+
+    <!-- CAPTCHA -->
+    <div class="captcha-wrap">
+      <div class="captcha-label">🔐 Security Check — Type the code below</div>
+      <div class="captcha-row">
+        <div class="captcha-code" id="login-captcha-display"></div>
+        <button class="captcha-refresh" id="captcha-refresh-login" title="Refresh code">
+          <svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+        </button>
+      </div>
+      <div class="captcha-input-row">
+        <input type="text" id="login-captcha-input" placeholder="Type code here…" maxlength="6" autocomplete="off"/>
+        <button class="captcha-verify-btn" id="captcha-verify-login">Verify</button>
+      </div>
+      <div class="captcha-status" id="login-captcha-status"></div>
+    </div>
+
+    <button class="btn-primary" id="login-btn">Sign In →</button>
+    <div style="text-align:center;margin-top:14px;">
+      <a href="#" style="font-size:13px;color:var(--crimson);font-weight:600;">Forgot password?</a>
+    </div>
+  </div>
+
+</div><!-- /page-auth -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     APP PAGE
+════════════════════════════════════════════════════════════ -->
+<div id="page-app" class="page">
+
+  <!-- ── SIDEBAR ─────────────────────────────────────────── -->
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+          <path d="M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
+        </svg>
+      </div>
+      <span class="sidebar-logo-name">Adokama<span>Earns</span></span>
+    </div>
+
+    <div class="nav-section-label">Main Menu</div>
+    <div class="nav-item active" data-tab="dashboard"><div class="nav-icon">📊</div> Dashboard</div>
+    <div class="nav-item" data-tab="tasks"><div class="nav-icon">✅</div> Tasks <span class="nav-badge" id="tasks-count">…</span></div>
+    <div class="nav-item" data-tab="referrals"><div class="nav-icon">👥</div> Referrals</div>
+    <div class="nav-item" data-tab="withdraw"><div class="nav-icon">💸</div> Withdraw</div>
+
+    <div class="nav-section-label">Account</div>
+    <div class="nav-item" data-tab="profile"><div class="nav-icon">👤</div> Profile</div>
+    <div class="nav-item" id="logout-btn"><div class="nav-icon">🚪</div> Log Out</div>
+
+    <div class="sidebar-bottom">
+      <div class="sidebar-user">
+        <div class="user-avatar" id="sidebar-avatar">?</div>
+        <div>
+          <div class="user-name" id="sidebar-name">Loading…</div>
+          <div class="user-plan">🟢 Active Member</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MAIN CONTENT ────────────────────────────────────── -->
+  <div class="main-content">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <h2 id="topbar-title">Dashboard</h2>
+        <p id="topbar-sub">Welcome back, <span id="topbar-name">…</span> 👋</p>
+      </div>
+      <div class="topbar-right">
+        <button class="daily-bonus-btn" id="daily-bonus-btn">
+          <div class="pulse"></div>
+          Claim Daily ₦50
+        </button>
+        <button class="notif-btn" id="notif-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <div class="notif-dot"></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ DASHBOARD ═══════════════════════════════════════ -->
+    <div id="tab-dashboard" class="inner-page active">
+
+      <div class="balance-hero fade-in">
+        <div class="balance-hero-inner">
+          <div class="balance-label">💰 Your Total Balance</div>
+          <div class="balance-amount" id="bal-display">₦0</div>
+          <div class="balance-note">Balance updates after admin approves your tasks.</div>
+          <div class="balance-actions">
+            <button class="bal-btn bal-btn-primary" onclick="document.querySelector('[data-tab=withdraw]').click()">Withdraw</button>
+            <button class="bal-btn bal-btn-secondary" onclick="document.querySelector('[data-tab=tasks]').click()">Earn More →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card fade-in"><div class="stat-icon red">🎯</div><div class="stat-value" id="stat-tasks">0</div><div class="stat-label">Tasks Submitted</div></div>
+        <div class="stat-card fade-in"><div class="stat-icon green">💰</div><div class="stat-value" id="stat-task-earn">₦0</div><div class="stat-label">Task Earnings</div></div>
+        <div class="stat-card fade-in"><div class="stat-icon orange">👥</div><div class="stat-value" id="stat-refs">0</div><div class="stat-label">Referrals</div></div>
+        <div class="stat-card fade-in"><div class="stat-icon blue">💸</div><div class="stat-value" id="stat-ref-earn">₦0</div><div class="stat-label">Referral Earnings</div></div>
+      </div>
+
+      <div class="dash-grid">
+        <!-- Earnings chart (static for now — connect analytics later) -->
+        <div class="card fade-in">
+          <div class="card-header">
+            <div><div class="card-title">Earnings This Week</div><div class="card-sub">Daily breakdown</div></div>
+          </div>
+          <div class="chart-bars">
+            <div class="bar-wrap"><div class="bar" style="height:30%"></div><div class="bar-label">Mon</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:55%"></div><div class="bar-label">Tue</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:40%"></div><div class="bar-label">Wed</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:75%"></div><div class="bar-label">Thu</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:50%"></div><div class="bar-label">Fri</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:88%"></div><div class="bar-label">Sat</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:65%;background:linear-gradient(180deg,#f97316,var(--orange))"></div><div class="bar-label">Today</div></div>
+          </div>
+        </div>
+
+        <!-- Streak -->
+        <div class="card fade-in">
+          <div class="card-header"><div class="card-title">Daily Streak 🔥</div></div>
+          <div class="streak-wrap">
+            <div class="streak-fire">🔥</div>
+            <div class="streak-num">1</div>
+            <div class="streak-label">Day Streak</div>
+            <div class="streak-days">
+              <div class="day-dot done">M</div>
+              <div class="day-dot today">T</div>
+              <div class="day-dot">W</div>
+              <div class="day-dot">T</div>
+              <div class="day-dot">F</div>
+              <div class="day-dot">S</div>
+              <div class="day-dot">S</div>
+            </div>
+            <div style="font-size:12px;color:var(--muted);margin-top:10px;">Log in daily to build your streak</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent activity + Leaderboard -->
+      <div class="dash-grid">
+        <div class="card fade-in">
+          <div class="card-header"><div class="card-title">Recent Activity</div></div>
+          <div class="activity-item"><div class="activity-icon" style="background:var(--crimson-faint);">👋</div><div class="activity-text"><p>Welcome to AdokamaEarns!</p><span>Just now</span></div><div class="activity-amount credit">+₦0</div></div>
+          <div class="activity-item"><div class="activity-icon" style="background:var(--orange-pale);">🎯</div><div class="activity-text"><p>Complete your first task to earn ₦100</p><span>Go to Tasks tab</span></div><div class="activity-amount pending">₦100</div></div>
+          <div class="activity-item"><div class="activity-icon" style="background:var(--green-pale);">👥</div><div class="activity-text"><p>Refer friends and earn ₦500 each</p><span>Go to Referrals tab</span></div><div class="activity-amount credit">₦500</div></div>
+        </div>
+
+        <div class="card fade-in">
+          <div class="card-header"><div class="card-title">🏆 Top Earners</div><div style="font-size:12px;color:var(--muted);">This Week</div></div>
+          <div class="lb-item"><div class="lb-rank gold">1</div><div class="lb-avatar" style="background:linear-gradient(135deg,#f59e0b,#f97316);">A</div><div class="lb-info"><div class="lb-name">Adaeze N.</div><div class="lb-tasks">34 tasks</div></div><div class="lb-earn">₦8,200</div></div>
+          <div class="lb-item"><div class="lb-rank silver">2</div><div class="lb-avatar" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">T</div><div class="lb-info"><div class="lb-name">Tunde A.</div><div class="lb-tasks">29 tasks</div></div><div class="lb-earn">₦6,900</div></div>
+          <div class="lb-item"><div class="lb-rank bronze">3</div><div class="lb-avatar" style="background:linear-gradient(135deg,#10b981,#059669);">F</div><div class="lb-info"><div class="lb-name">Fatima M.</div><div class="lb-tasks">25 tasks</div></div><div class="lb-earn">₦5,700</div></div>
+          <div class="lb-item"><div class="lb-rank" style="color:var(--muted);">4</div><div class="lb-avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);">K</div><div class="lb-info"><div class="lb-name">Kemi O.</div><div class="lb-tasks">18 tasks</div></div><div class="lb-earn">₦3,800</div></div>
+        </div>
+      </div>
+    </div><!-- /dashboard -->
+
+    <!-- ══ TASKS ════════════════════════════════════════════ -->
+    <div id="tab-tasks" class="inner-page">
+
+      <div class="progress-banner fade-in" id="progress-banner">
+        <div class="icon">🎯</div>
+        <div class="progress-info">
+          <p>Complete 5 tasks to unlock a <strong>₦300 Bonus Reward!</strong></p>
+          <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+          <div class="prog-text" id="prog-text">0 of 5 tasks completed</div>
+        </div>
+        <div class="progress-reward">
+          <div class="reward-amt">₦300</div>
+          <div class="reward-label">Bonus on unlock</div>
+        </div>
+      </div>
+
+      <div class="tasks-filter">
+        <button class="filter-btn active" data-filter="all">All Tasks</button>
+        <button class="filter-btn" data-filter="available">Available</button>
+        <button class="filter-btn" data-filter="pending">Pending Review</button>
+        <button class="filter-btn" data-filter="done">Completed</button>
+      </div>
+
+      <div class="tasks-grid" id="tasks-grid">
+        <div class="tasks-loading">⏳ Loading tasks…</div>
+      </div>
+    </div><!-- /tasks -->
+
+    <!-- ══ REFERRALS ════════════════════════════════════════ -->
+    <div id="tab-referrals" class="inner-page">
+
+      <div class="referral-hero fade-in">
+        <div class="ref-hero-text">
+          <h2>Invite Friends,<br/>Earn Unlimited ₦500s!</h2>
+          <p>Every friend who joins AdokamaEarns using your link earns you ₦500 instantly. No limit on referrals.</p>
+        </div>
+        <div class="ref-earn-badge">
+          <div class="amount">₦500</div>
+          <div class="per">per referral</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:7px;font-weight:500;">UNLIMITED</div>
+        </div>
+      </div>
+
+      <div class="ref-link-card fade-in">
+        <div class="ref-link-title">Your Unique Referral Link</div>
+        <div class="ref-link-box">
+          <div class="ref-link-input" id="ref-link-val-text">adokamaearns.com/invite/—</div>
+          <button class="copy-btn" id="copy-ref-btn">📋 Copy Link</button>
+        </div>
+        <div style="font-size:12px;color:var(--muted);margin-top:10px;">Your code: <strong id="ref-code-display" style="color:var(--crimson);">—</strong></div>
+        <div class="share-btns">
+          <button class="share-btn">📱 WhatsApp</button>
+          <button class="share-btn">📘 Facebook</button>
+          <button class="share-btn">🐦 X (Twitter)</button>
+          <button class="share-btn">📩 SMS</button>
+        </div>
+      </div>
+
+      <div class="ref-stats-grid fade-in">
+        <div class="ref-stat"><div class="val" id="ref-total">0</div><div class="lbl">Total Referrals</div></div>
+        <div class="ref-stat"><div class="val red" id="ref-earn-total">₦0</div><div class="lbl">Referral Earnings</div></div>
+        <div class="ref-stat"><div class="val" id="ref-active">0</div><div class="lbl">Active Referrals</div></div>
+      </div>
+
+      <div class="ref-table fade-in">
+        <div class="ref-table-header">
+          <div class="card-title">Referred Members</div>
+          <div style="font-size:12px;color:var(--muted);">People who joined via your link</div>
+        </div>
+        <div style="padding:30px;text-align:center;color:var(--muted);font-size:14px;">
+          🔗 Share your link to start earning ₦500 per referral!
+        </div>
+      </div>
+    </div><!-- /referrals -->
+
+    <!-- ══ WITHDRAW ═════════════════════════════════════════ -->
+    <div id="tab-withdraw" class="inner-page">
+
+      <!-- Coming Soon banner — withdrawal is disabled -->
+      <div class="coming-soon-banner fade-in">
+        <div class="icon">🏦</div>
+        <h2>Withdrawals Coming Soon</h2>
+        <p>
+          We're setting up our payment system to ensure safe and fast payouts.
+          Minimum withdrawal will be <strong style="color:white;">₦5,000</strong> via Bank Transfer, OPay, or PalmPay.
+          Keep earning while we get this ready!
+        </p>
+        <span class="coming-soon-badge">⏳ Phase 2 Feature</span>
+      </div>
+
+      <!-- Balance preview (read-only) -->
+      <div class="withdraw-hero fade-in">
+        <div class="withdraw-bal-row">
+          <div>
+            <div class="withdraw-bal-label">Your Current Balance</div>
+            <div class="withdraw-bal-amount" id="withdraw-bal-amount">₦0</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Minimum</div>
+            <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--crimson);">₦5,000</div>
+          </div>
+        </div>
+        <div class="withdraw-min-notice" id="withdraw-min-notice">
+          ⚠️ Minimum withdrawal is <strong>₦5,000.</strong> Keep completing tasks to get there!
+        </div>
+      </div>
+
+      <div class="card fade-in" style="text-align:center;padding:32px;">
+        <div style="font-size:36px;margin-bottom:12px;">🔒</div>
+        <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:8px;">Withdrawal Locked</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;max-width:340px;margin:0 auto;">
+          Withdrawal functionality is not yet active. Focus on completing tasks and building your referral network. We'll notify you as soon as withdrawals go live.
+        </div>
+      </div>
+    </div><!-- /withdraw -->
+
+    <!-- ══ PROFILE ══════════════════════════════════════════ -->
+    <div id="tab-profile" class="inner-page">
+
+      <div class="profile-hero fade-in">
+        <div class="profile-avatar-large" id="profile-avatar">?</div>
+        <div class="profile-info">
+          <h2 id="profile-fullname">Loading…</h2>
+          <p id="profile-email-display">—</p>
+          <div class="profile-badges">
+            <span class="p-badge p-badge-active">🟢 Active</span>
+            <span class="p-badge p-badge-member">⭐ Member</span>
+          </div>
+        </div>
+        <div style="margin-left:auto;">
+          <button class="profile-edit-btn">✏️ Edit Profile</button>
+        </div>
+      </div>
+
+      <div class="profile-grid fade-in">
+        <div class="profile-card">
+          <div class="card-header"><div class="card-title">Personal Info</div></div>
+          <div class="profile-field"><span class="pf-label">Full Name</span><span class="pf-value" id="pf-name">—</span></div>
+          <div class="profile-field"><span class="pf-label">Email</span><span class="pf-value" id="pf-email">—</span></div>
+          <div class="profile-field"><span class="pf-label">Member Since</span><span class="pf-value">This month</span></div>
+          <div class="profile-field"><span class="pf-label">Referral Code</span><span class="pf-value" id="pf-refcode" style="color:var(--crimson);font-weight:700;">—</span></div>
+        </div>
+
+        <div class="profile-card">
+          <div class="card-header"><div class="card-title">Earnings Summary</div></div>
+          <div class="profile-field"><span class="pf-label">Total Balance</span><span class="pf-value" id="profile-balance" style="font-weight:700;color:var(--crimson);">₦0</span></div>
+          <div class="profile-field"><span class="pf-label">Tasks Submitted</span><span class="pf-value" id="pf-tasks">0</span></div>
+          <div class="profile-field"><span class="pf-label">Total Withdrawn</span><span class="pf-value" style="color:var(--green);">₦0</span></div>
+        </div>
+
+        <div class="profile-card">
+          <div class="card-header"><div class="card-title">Security</div></div>
+          <div class="profile-field"><span class="pf-label">Password</span><button class="profile-edit-btn" style="font-size:12px;padding:5px 12px;">Change</button></div>
+          <div class="profile-field"><span class="pf-label">2-Step Verification</span><span style="font-size:13px;color:var(--muted);">Coming soon</span></div>
+          <div class="profile-field"><span class="pf-label">Login Alerts</span><span style="font-size:13px;color:var(--green);font-weight:600;">✓ Enabled</span></div>
+        </div>
+
+        <div class="profile-card">
+          <div class="card-header"><div class="card-title">Notifications</div></div>
+          <div class="profile-field"><span class="pf-label">New Tasks</span><span style="font-size:13px;color:var(--green);font-weight:600;">✓ On</span></div>
+          <div class="profile-field"><span class="pf-label">Referral Updates</span><span style="font-size:13px;color:var(--green);font-weight:600;">✓ On</span></div>
+          <div class="profile-field"><span class="pf-label">Streak Reminders</span><span style="font-size:13px;color:var(--green);font-weight:600;">✓ On</span></div>
+        </div>
+      </div>
+    </div><!-- /profile -->
+
+  </div><!-- /main-content -->
+</div><!-- /page-app -->
+
+
+<!-- ═══════════════════════════════════════════════════════
+     NOTIFICATIONS POPUP
+════════════════════════════════════════════════════════════ -->
+<div class="notif-popup" id="notif-popup">
+  <div class="notif-popup-header">Notifications <span class="notif-clear" id="notif-close">Close</span></div>
+  <div class="notif-popup-item"><div class="notif-dot-unread"></div><div><div class="notif-p">🎯 New tasks are available — start earning!</div><div class="notif-t">Just now</div></div></div>
+  <div class="notif-popup-item"><div class="notif-dot-unread"></div><div><div class="notif-p">👥 Refer friends to earn ₦500 each — unlimited!</div><div class="notif-t">Today</div></div></div>
+  <div class="notif-popup-item"><div class="notif-dot-read"></div><div><div class="notif-p">✅ Your account is active. Welcome aboard!</div><div class="notif-t">Account created</div></div></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DAILY BONUS MODAL
+════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="bonus-modal">
+  <div class="modal">
+    <h3>🎁 Daily Login Bonus</h3>
+    <p>You've logged in today! Claim your free daily bonus. Return every day to build your streak and earn more.</p>
+    <div class="modal-bonus-amount">
+      <span class="emoji">🎉</span>
+      <span class="amount">₦50</span>
+      <span class="label">Daily Login Bonus</span>
+    </div>
+    <button class="btn-primary" onclick="claimBonus()">Claim ₦50 Now 🎊</button>
+    <button class="modal-cancel" onclick="closeBonusModal()">Maybe Later</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TASK CONFIRM MODAL
+════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="task-modal">
+  <div class="modal">
+    <h3 id="task-modal-title">Complete Task</h3>
+    <p id="task-modal-desc">Click the link below to complete the task, then come back and submit for review.</p>
+
+    <a id="task-modal-link" href="#" target="_blank" rel="noopener">
+      <button class="task-go-btn">👉 Open Page / Account</button>
+    </a>
+
+    <div class="proof-label">Describe what you did (optional but helps approval speed)</div>
+    <textarea class="proof-input" id="task-proof-input" placeholder="e.g. I followed the Instagram page @adokamaearns from my account @myhandle"></textarea>
+
+    <button class="btn-primary" id="task-submit-btn" style="margin-top:0;">✅ I've Done It — Submit for Review</button>
+    <button class="modal-cancel" id="task-modal-close">Cancel</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TOAST
+════════════════════════════════════════════════════════════ -->
+<div class="toast" id="toast"><span id="toast-msg"></span></div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPTS — ES Modules
+     NOTE: Firebase CDN + your own modular JS files
+════════════════════════════════════════════════════════════ -->
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>
